@@ -4,6 +4,7 @@ import usersRoutes from "./routes/UsersRoutes.js";
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 app.use('/', usersRoutes);
 
 app.listen(port, () => {

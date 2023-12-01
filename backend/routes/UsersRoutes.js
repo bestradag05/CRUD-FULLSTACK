@@ -1,28 +1,13 @@
 import  express from "express";
-import connection from "../config/db.js";
+import Users from "../Models/Users.js";
+import {listarUsuarios, 
+    registrarUsuarios, 
+    actualizarUsuario} from '../controllers/UsersController.js';
 
 const router = express.Router();
 
 
-router.get('/login', (req, res) => {
-
-    try {
-
-        connection.query('SELECT * FROM users', (error, resultados) => {
-            if(error){
-                console.log('Error al obtener los datos de los usuarios');
-                res.json({msg: 'Error al obtener los usuarios'});
-            }else{
-                console.log(resultados);
-                res.json({resultados});
-            }
-       })
-
-        connection.end();
-    } catch (error) {
-        connection.end();
-    }
-  
-})
-
+router.get('/listar', listarUsuarios)
+router.post('/registrar', registrarUsuarios);
+router.put('/actualizar/:id', actualizarUsuario);
 export default router;
