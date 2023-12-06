@@ -23,21 +23,40 @@ const listarUsuarios =  async (req, res) => {
 
  const actualizarUsuario = async (req, res) => {
     try {
-        const usuario = await Users.findOne({
-            where: {idusers: req.params.id}
-        });
+        const usuario = await Users.update(req.body, {
+            where: {
+                idusers: req.params.id
+            }
+        })
 
-       
-        
+        res.json({usuario});
 
     } catch (error) {
         res.json({msg: 'Error al encontrar o actualizar el usuario'});
     }
  }
 
+
+ const eliminarUsuario = async (req, res) => {
+    try {
+        
+        const usuario = await Users.destroy({
+            where: {
+                idusers: req.params.id
+            }
+        })
+
+        res.json(usuario);
+
+    } catch (error) {
+        res.json(error);
+    }
+ }
+
  export {
     listarUsuarios,
     registrarUsuarios,
-    actualizarUsuario
+    actualizarUsuario,
+    eliminarUsuario
  }
 
