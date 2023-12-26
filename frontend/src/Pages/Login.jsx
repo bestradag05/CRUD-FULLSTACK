@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SingIn from "./SingIn";
-import SingUp from "./SingUp";
+import SingIn from "../components/SingIn";
+import SingUp from "../components/SingUp";
 
 
 const Login = () => {
@@ -17,11 +17,11 @@ const Login = () => {
             </div>
 
             <div>
-                <div className="bg-[#364960] h-full flex flex-col justify-center items-center ">
-                    <div className="flex flex-row gap-4 justify-center items-center text-white mb-16">
-                        <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === true ? 'subrayado' : ''} text-3xl font-light`}>Sing in</a>
+                <div className="bg-[#364960] h-full flex flex-col justify-center items-center py-4 ">
+                    <div className="flex flex-row gap-4 justify-center items-center text-white mb-7">
+                        <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === true ? 'subrayado' : 'text-slate-400'} text-3xl font-light`}>Sing in</a>
                         <p className="font-light">or</p>
-                        <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === false ? 'subrayado' : ''} text-3xl font-light`}>Sing Up</a>
+                        <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === true ? 'text-slate-400' : 'subrayado'} text-3xl font-light`}>Sing Up</a>
                     </div>
 
 

@@ -11,6 +11,7 @@ const listarUsuarios =  async (req, res) => {
  const registrarUsuarios = async(req, res) => {
 
     try {
+      
         const usuario = await Users.create(req.body);
         res.json({usuario});
 

@@ -4,12 +4,12 @@ const SingIn = () => {
     return (
         <form action="" className="w-3/5">
             <div className="mb-5">
-                <label htmlFor="usuario" className="text-2xl text-white uppercase block">Usuario</label>
+                <label htmlFor="usuario" className="text-1xl text-white uppercase block">Usuario</label>
                 <input type="text" className="bg-transparent border-b mt-2 text-white w-full focus:outline-none" placeholder="Ingrese usuario" />
             </div>
 
             <div className="mb-5">
-                <label htmlFor="password" className="text-2xl text-white uppercase block">Password</label>
+                <label htmlFor="password" className="text-1xl text-white uppercase block">Password</label>
                 <input type="password" className="bg-transparent border-b mt-2 text-white w-full focus:outline-none" placeholder="Ingrese password" />
             </div>
 

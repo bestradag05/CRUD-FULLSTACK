@@ -8,8 +8,8 @@ import {listarUsuarios,
 const router = express.Router();
 
 
-router.get('/listar', listarUsuarios)
-router.post('/registrar', registrarUsuarios);
-router.put('/actualizar/:id', actualizarUsuario);
-router.delete('/eliminar/:id', eliminarUsuario);
+router.get('/usuarios', listarUsuarios)
+router.post('/usuarios', registrarUsuarios);
+router.put('/usuarios/:id', actualizarUsuario);
+router.delete('/usuarios/:id', eliminarUsuario);
 export default router;
