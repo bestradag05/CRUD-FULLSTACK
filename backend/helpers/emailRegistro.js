@@ -16,9 +16,17 @@ const emailRegistro = async (datos) => {
 
       const { email, nombre, token } = datos; 
 
+      console.log("El token es el siguiente",token);
       // Armamos la estructura del envio de correos
-
-      console.log(nombre);
+      const info = await transporter.sendMail({
+        from: 'Comprueba tu cuenta',
+        to: email,
+        subject: 'Comprueba tu cuenta para poder iniciar sesion',
+        html:`<p> Hola: ${nombre},</p>
+        <p>Tu cuenta ya esta lista, solo debes comprobarla en el siguiente enlace:
+        <a href="http://localhost:5173/confirmar/${token}">Comprobar cuenta </a> </p>`
+      })
+     
 }
 
 export default emailRegistro;

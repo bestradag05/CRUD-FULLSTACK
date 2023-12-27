@@ -3,6 +3,7 @@ import SingIn from "../components/SingIn";
 import SingUp from "../components/SingUp";
 
 
+
 const Login = () => {
 
     const [singIn, setSinIng] = useState(true);
@@ -23,7 +24,6 @@ const Login = () => {
                         <p className="font-light">or</p>
                         <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === true ? 'text-slate-400' : 'subrayado'} text-3xl font-light`}>Sing Up</a>
                     </div>
-
 
                 {singIn === true ?  <SingIn /> : <SingUp />}
 

@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login';
+import CuentaConfirmada from './Pages/CuentaConfirmada';
+import CambiarPassword from './Pages/CambiarPassword';
 
 
 function App() {
@@ -8,6 +10,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Login />} />
+        <Route path='/confirmar/:token' element={<CuentaConfirmada />} />
+        <Route path='/cambiarpassword' element={<CambiarPassword />} />
       </Routes>
     </BrowserRouter>
   )

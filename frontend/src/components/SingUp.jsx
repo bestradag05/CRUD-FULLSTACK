@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Alert from './Alert';
+import { Link } from 'react-router-dom';
 
 const SingUp = () => {
 
@@ -115,7 +116,7 @@ const SingUp = () => {
 
                 <div className="flex items-center gap-10 mt-16">
                     <button type='submit' className="text-white px-5 py-2 rounded-3xl bg-emerald-400">Registrarme</button>
-                    <p><a href="" className="text-white font-light text-sm subrayado">Olvide mi contraseña</a></p>
+                    <p><Link to="/cambiarpassword" className="text-white font-light text-sm subrayado">Olvide mi contraseña</Link></p>
                 </div>
 
             </form>

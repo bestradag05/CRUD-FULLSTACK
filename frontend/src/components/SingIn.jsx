@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SingIn = () => {
     return (
@@ -15,7 +16,7 @@ const SingIn = () => {
 
             <div className="flex items-center gap-10 mt-16">
                 <button className="text-white px-5 py-2 rounded-3xl bg-emerald-400">Iniciar Sesion</button>
-                <p><a href="" className="text-white font-light text-sm subrayado">Olvide mi contraseña</a></p>
+                <p><Link to="/cambiarpassword" className="text-white font-light text-sm subrayado">Olvide mi contraseña</Link></p>
             </div>
 
         </form>
