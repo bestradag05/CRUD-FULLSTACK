@@ -5,7 +5,9 @@ import {listarUsuarios,
     actualizarUsuario,
     eliminarUsuario,
     confirmarUsuario,
-    olvidePassword} from '../controllers/UsersController.js';
+    olvidePassword,
+    comprobarToken,
+    actualizarPassword} from '../controllers/UsersController.js';
 
 const router = express.Router();
 
@@ -17,4 +19,5 @@ router.delete('/usuarios/:id', eliminarUsuario);
 
 router.get('/usuarios/confirmar/:token', confirmarUsuario);
 router.post('/usuarios/olvidepassword', olvidePassword);
+router.route('/usuarios/recuperar-password/:token').get(comprobarToken).post(actualizarPassword);
 export default router;
