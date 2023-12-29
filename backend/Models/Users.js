@@ -29,6 +29,10 @@ const Users = sequelize.define('users', {
 Users.beforeSave(async (user, option) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt); 
-})
+});
+
+Users.prototype.comprobarPassword = async function(passwordFormulario) {
+    return await bcrypt.compare(passwordFormulario, this.password);
+}
 
 export default Users;

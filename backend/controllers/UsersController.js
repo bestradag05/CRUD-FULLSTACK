@@ -2,7 +2,51 @@ import Users from "../Models/Users.js";
 import emailRegistro from "../helpers/emailRegistro.js";
 import generarId from "../helpers/generarToken.js";
 import emailOlvidePassword from "../helpers/emailOlvidePassword.js";
+import generarJWT from "../helpers/generarJWT.js";
 
+
+const login = async (req, res) => {
+   
+    const { email, password } = req.body;
+
+    const usuario = await Users.findOne({where: {email}});
+
+    if(!usuario){
+        const error = new Error('El usuario no existe');
+        return res.status(404).json({msg: error.message});
+    }
+
+    if(!usuario.confirmado){
+        const error = new Error('Tu cuenta no ha sido confirmada aun');
+        return res.status(403).json({msg: error.message});
+    }
+
+    if(await usuario.comprobarPassword(password)){
+
+        res.json({
+            id: usuario.id,
+            nombre: usuario.nombre,
+            email: usuario.email,
+            token: generarJWT(usuario.id)
+        })
+
+       
+    }else{
+        const error = new Error('El password es incorrecto');
+        return res.status(404).json({msg: error.message});
+    }
+
+
+}
+
+
+const perfil  = async (req, res) => {
+
+    const { usuario } = req;
+
+    res.json(usuario);
+
+}
 
 const listarUsuarios =  async (req, res) => {
 
@@ -170,6 +214,8 @@ const listarUsuarios =  async (req, res) => {
     confirmarUsuario,
     olvidePassword,
     comprobarToken,
-    actualizarPassword
+    actualizarPassword,
+    login,
+    perfil
  }
 
