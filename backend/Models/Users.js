@@ -26,7 +26,7 @@ const Users = sequelize.define('users', {
     timestamps: false
 })
 
-Users.beforeCreate(async (user, option) => {
+Users.beforeSave(async (user, option) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt); 
 })

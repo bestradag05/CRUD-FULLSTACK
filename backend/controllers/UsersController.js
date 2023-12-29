@@ -94,7 +94,9 @@ const listarUsuarios =  async (req, res) => {
     
    const { token } = req.params;
 
-   if(token){
+   const usuario = await Users.findOne({where: {token: token}})
+
+   if(usuario){
      res.json({msg: 'Token valido y el usuario existe'});
    }else{
     const error = new Error('Token no valido');
@@ -105,6 +107,27 @@ const listarUsuarios =  async (req, res) => {
 
  const actualizarPassword = async(req, res) => {
 
+    const {token} = req.params;
+    const {password} = req.body;
+    const usuario = await Users.findOne({where: {token}});
+
+    if(!usuario){
+        const error = new Error('Token no valido');
+        return res.status(404).json({msg: error.message})
+    }
+
+    try {
+
+        usuario.token = null;
+        usuario.password = password;
+
+        await usuario.save();
+
+        res.json({msg: 'Tu contraseña se actualizo correctamente'});
+        
+    } catch (error) {
+        res.json({msg: error.message});
+    }
  }
 
  const actualizarUsuario = async (req, res) => {
