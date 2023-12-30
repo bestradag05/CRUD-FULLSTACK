@@ -13,7 +13,7 @@ const SingIn = () => {
 
     const [alerta, setAlerta] = useState({});
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if ([email, password].includes('')) {
@@ -31,7 +31,7 @@ const SingIn = () => {
         }
 
 
-        fetch('http://localhost:3000/usuarios/login', {
+        await fetch('http://localhost:3000/usuarios/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,6 +48,7 @@ const SingIn = () => {
                 return respuesta.json();
             })
             .then(data => {
+                console.log("fetch ejecutando");
                 localStorage.setItem('token', data.token);
                 setAuth(data);
                 navigate('/admin');
@@ -59,7 +60,7 @@ const SingIn = () => {
                 })
             })
 
-
+            console.log("fetch terminado");
 
 
     }

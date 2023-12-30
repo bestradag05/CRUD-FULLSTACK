@@ -13,7 +13,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
 
         const autenticarUsuario = async () => {
-            console.log(auth);
             const token = localStorage.getItem('token');
 
             if(!token){
@@ -21,7 +20,7 @@ const AuthProvider = ({ children }) => {
                 return;            
             }
 
-            fetch('http://localhost:3000/usuarios/perfil',{
+            await fetch('http://localhost:3000/usuarios/perfil',{
                 headers: {
                     'Content-Type' : 'application/json',
                     Authorization: `Bearer ${token}`
@@ -43,11 +42,18 @@ const AuthProvider = ({ children }) => {
                 console.log(error.message);
                 setAuth({});
             })
+
+            setCargando(false);
         }
 
         autenticarUsuario();
 
     },[]);
+
+    const cerrarSesion = () => {
+        localStorage.removeItem('token');
+        setAuth({});
+    }
    
 
 
@@ -55,7 +61,8 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={{
         auth,
         setAuth,
-        cargando
+        cargando,
+        cerrarSesion
     }}>
         {children}
     </AuthContext.Provider>

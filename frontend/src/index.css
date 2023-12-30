@@ -16,3 +16,24 @@
   background: rgb(52, 211, 153);
   z-index: 10;
 }
+
+.link-nav{
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.link-nav:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #34D399;
+  transition: width 0.3s ease-in-out; 
+}
+
+.link-nav:hover:before {
+  width: 60%; /* Anchura del :before al hacer hover */
+}
