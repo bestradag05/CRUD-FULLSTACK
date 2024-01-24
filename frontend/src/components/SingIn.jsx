@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, redirect, useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 import Alert from './Alert';
+
+const CLIENT_ID = "4b5ba89e65304b1a991ec8ec8a123985"
+const REDIRECT_URI = "http://localhost:5173/admin"
+const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
+const RESPONSE_TYPE = "token"
 
 const SingIn = () => {
 
@@ -30,7 +35,6 @@ const SingIn = () => {
             password
         }
 
-
         await fetch('http://localhost:3000/usuarios/login', {
             method: 'POST',
             headers: {
@@ -48,10 +52,12 @@ const SingIn = () => {
                 return respuesta.json();
             })
             .then(data => {
-                console.log("fetch ejecutando");
                 localStorage.setItem('token', data.token);
                 setAuth(data);
-                navigate('/admin');
+
+                window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&state=${'user-read-private user-read-email'}`;
+
+                
             })
             .catch(error => {
                 setAlerta({
@@ -60,7 +66,6 @@ const SingIn = () => {
                 })
             })
 
-            console.log("fetch terminado");
 
 
     }
