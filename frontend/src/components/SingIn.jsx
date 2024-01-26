@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth';
 import Alert from './Alert';
+import axios from 'axios';
+
 
 const CLIENT_ID = "4b5ba89e65304b1a991ec8ec8a123985"
 const REDIRECT_URI = "http://localhost:5173/admin"
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const RESPONSE_TYPE = "token"
+const RESPONSE_TYPE = "code"
 
 const SingIn = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setAuth } = useAuth();
-    const navigate = useNavigate();
 
 
     const [alerta, setAlerta] = useState({});
@@ -30,42 +31,33 @@ const SingIn = () => {
             return;
         }
 
-        const data = {
+        const user = {
             email,
             password
         }
 
-        await fetch('http://localhost:3000/usuarios/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(respuesta => {
-                if (!respuesta.ok) {
-                    return respuesta.json().then(mensajeServidor => {
-                        throw new Error(mensajeServidor.msg);
-                    })
+        try {
+
+           const {data} = await axios.post('http://localhost:3000/usuarios/login', user ,{
+                headers : {
+                    'Content-Type': 'application/json'
                 }
+    
+            });
 
-                return respuesta.json();
-            })
-            .then(data => {
-                localStorage.setItem('token', data.token);
-                setAuth(data);
+            localStorage.setItem('token', data.token);
+            setAuth(data);
 
-                window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&state=${'user-read-private user-read-email'}`;
+            //Autorizamos spotify 
+            //Si se autoriza, este redirecciona hacia el dashboard y ahi se programa el cambio del code por 
+            //el token
+            window.location.href = `${import.meta.env.VITE_AUTH_ENDPOINT}?client_id=${import.meta.env.VITE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=${import.meta.env.VITE_RESPONSE_TYPE}&state=${'user-read-private user-read-email'}`;
+            
+        } catch (error) {
+            console.log(error);
+        }
 
-                
-            })
-            .catch(error => {
-                setAlerta({
-                    msg: error.message,
-                    error: true
-                })
-            })
-
+       
 
 
     }

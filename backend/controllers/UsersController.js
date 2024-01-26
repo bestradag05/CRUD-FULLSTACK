@@ -6,10 +6,11 @@ import generarJWT from "../helpers/generarJWT.js";
 
 
 const login = async (req, res) => {
-   
+
     const { email, password } = req.body;
 
     const usuario = await Users.findOne({where: {email}});
+
 
     if(!usuario){
         const error = new Error('El usuario no existe');
