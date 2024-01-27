@@ -5,11 +5,6 @@ import Alert from './Alert';
 import axios from 'axios';
 
 
-const CLIENT_ID = "4b5ba89e65304b1a991ec8ec8a123985"
-const REDIRECT_URI = "http://localhost:5173/admin"
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-const RESPONSE_TYPE = "code"
-
 const SingIn = () => {
 
     const [email, setEmail] = useState('');

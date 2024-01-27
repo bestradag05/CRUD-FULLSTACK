@@ -8,12 +8,14 @@ const AuthProvider = ({ children }) => {
 
     const [cargando, setCargando ] = useState(true);
     const [auth, setAuth] = useState({});
+    const [spotifyToken, setSpotifyToken] = useState("");
     
 
     useEffect(() => {
 
         const autenticarUsuario = async () => {
             const token = localStorage.getItem('token');
+            const spotifyToken = localStorage.getItem('spotifyToken');
 
             if(!token){
                 setCargando(false);
@@ -37,6 +39,7 @@ const AuthProvider = ({ children }) => {
             })
             .then(data => {
                 setAuth(data);
+                setSpotifyToken(spotifyToken);
             })
             .catch(error => {
                 console.log(error.message);
@@ -52,7 +55,9 @@ const AuthProvider = ({ children }) => {
 
     const cerrarSesion = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('spotifyToken');
         setAuth({});
+        setSpotifyToken("");
     }
    
 
@@ -62,7 +67,9 @@ const AuthProvider = ({ children }) => {
         auth,
         setAuth,
         cargando,
-        cerrarSesion
+        cerrarSesion,
+        spotifyToken,
+        setSpotifyToken
     }}>
         {children}
     </AuthContext.Provider>
