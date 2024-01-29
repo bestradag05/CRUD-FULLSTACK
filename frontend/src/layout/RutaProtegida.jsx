@@ -54,28 +54,6 @@ const RutaProtegida = () => {
 
   getToken();
 
-  const getTracks = async () => {
-
-    try {
-      const response = await axios.get("https://api.spotify.com/v1/search", {
-        params: {
-          q: 'genre:reggaeton', // Puedes ajustar los parámetros de búsqueda según tus preferencias
-          type: 'track',
-          limit: 20,
-        },
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('spotifyToken')
-        }
-      });
-  
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  //getTracks();
-
-
   },[]) 
 
 

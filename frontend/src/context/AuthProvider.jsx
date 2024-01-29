@@ -40,6 +40,7 @@ const AuthProvider = ({ children }) => {
             .then(data => {
                 setAuth(data);
                 setSpotifyToken(spotifyToken);
+            
             })
             .catch(error => {
                 console.log(error.message);
