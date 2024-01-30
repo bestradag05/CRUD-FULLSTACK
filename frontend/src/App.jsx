@@ -6,6 +6,7 @@ import ActualizarPassword from './Pages/ActualizarPassword';
 import { AuthProvider } from './context/AuthProvider';
 import RutaProtegida from './layout/RutaProtegida';
 import Dashboard from './Pages/Dashboard';
+import "./assets/font-awesome/font-awesome-pro.js"; 
 
 
 function App() {
