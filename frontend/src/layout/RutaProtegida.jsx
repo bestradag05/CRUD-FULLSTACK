@@ -64,7 +64,7 @@ const RutaProtegida = () => {
       <Header />
       {auth?.id ?
         (
-          <main className=' '>
+          <main className='bg-black '>
             <Outlet />
           </main>
         ) : <Navigate to={"/"} />
