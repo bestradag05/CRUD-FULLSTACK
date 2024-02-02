@@ -2,12 +2,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import TrackInfo from '../Pages/TrackInfo';
 
 const Search = () => {
 
   const { spotifyToken } = useAuth();
   const [query, setQuery] = useState("");
   const [trackSearch, setTrackSearch] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (query !== "") {
@@ -63,8 +67,8 @@ const Search = () => {
             Authorization: `Bearer ${spotifyToken}`,
           },
         });
-      
-      console.log(response);
+
+      navigate('/admin/track-info', { state: { data: response.data } });
 
     } catch (error) {
       console.log(error);
