@@ -14,7 +14,7 @@ const Search = () => {
       const searchTrack = async () => {
 
         try {
-          const response = await axios.get('https://api.spotify.com/v1/search', {
+          const response = await axios('https://api.spotify.com/v1/search', {
             params: {
               q: encodeURIComponent(query),
               type: 'track',
@@ -34,7 +34,7 @@ const Search = () => {
           const tracks = response.data.tracks.items.map(track => ({
             label: `${track.name} - ${track.artists.map(artist => artist.name).join(', ')}`,
             value: track.id
-          }));  
+          }));
 
           setTrackSearch(tracks);
         } catch (error) {
@@ -44,16 +44,37 @@ const Search = () => {
       }
 
       searchTrack();
-    }else{
+    } else {
       setTrackSearch([]);
     }
 
   }, [query])
 
+  const handleClickTrackInfo = async (e) => {
+    console.log(e.value);
+
+    // obtenemos el id y buscamos la info a detalle de la cancion
+
+    try {
+
+      const response = await axios(`https://api.spotify.com/v1/tracks/${e.value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${spotifyToken}`,
+          },
+        });
+      
+      console.log(response);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="flex justify-center items-center p-5 mb-5">
       <Select className='w-1/3'
-        onInputChange={(inputValue) => setQuery(inputValue)}  options={trackSearch} />
+        onInputChange={(inputValue) => setQuery(inputValue)} options={trackSearch} onChange={handleClickTrackInfo} />
     </div>
   );
 }

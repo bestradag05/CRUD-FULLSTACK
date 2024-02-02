@@ -39,7 +39,7 @@ const Track = ({ name, img, preview, setPlayPreview, curretPreview, setCurrentPr
         <>
 
 
-            <Card className="max-w-lg m-5">
+            <Card className="w-80 max-w-lg m-5">
 
                 <div className="relative">
                     <img src={img} alt="" className="object-cover w-full h-full" />

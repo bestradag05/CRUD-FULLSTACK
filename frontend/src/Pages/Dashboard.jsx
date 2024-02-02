@@ -80,7 +80,7 @@ const Dashboard = () => {
       <div className='p-5 text-center'>
         <h1 className='text-emerald-400 text-3xl'>Recomendaciones</h1>
       </div>
-      <section className={`${cargando ? 'grid-cols-1' : 'grid grid-cols-4'} place-items-center p-10 max-w-screen-2xl mx-auto`}>
+      <section className={`${cargando ? 'grid-cols-1' : ' grid-cols-4'} grid place-items-center p-10 max-w-screen-2xl mx-auto`}>
         {cargando ?
           (
             <Spinner />
