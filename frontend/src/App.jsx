@@ -7,7 +7,7 @@ import { AuthProvider } from './context/AuthProvider';
 import RutaProtegida from './layout/RutaProtegida';
 import Dashboard from './Pages/Dashboard';
 import TrackInfo from './Pages/TrackInfo.jsx';
-import "./assets/font-awesome/font-awesome-pro.js"; 
+import "./assets/font-awesome/font-awesome-pro.js";
 
 
 function App() {
@@ -22,8 +22,8 @@ function App() {
           <Route path='/recuperar-password/:token' element={<ActualizarPassword />} />
 
           <Route path='/admin' element={<RutaProtegida />} >
-              <Route index element={<Dashboard />} />
-              <Route path='track-info' element={<TrackInfo/>} />
+            <Route index element={<Dashboard />} />
+            <Route path='track-info' element={<TrackInfo />} />
           </Route>
         </Routes>
       </AuthProvider>

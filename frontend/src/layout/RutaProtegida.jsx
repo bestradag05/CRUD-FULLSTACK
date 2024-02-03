@@ -1,5 +1,5 @@
 import useAuth from '../hooks/useAuth'
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, redirect, useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header';
 import React, { useEffect } from 'react'
 import axios from 'axios';
@@ -17,10 +17,12 @@ const RutaProtegida = () => {
     const spotifyCode = urlParams.get("code");
     const tokenSpotify = localStorage.getItem('spotifyToken');
 
-    if (spotifyCode === null) {
-
+    //Si es que no acepta la autorizacion se redirecciona al login
+    if (urlParams.get("error") === "access_denied") {
       navigate("/");
+      localStorage.removeItem("token");
     }
+
 
     const getToken = async () => {
       try {

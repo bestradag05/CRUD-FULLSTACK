@@ -76,7 +76,7 @@ const Dashboard = () => {
     <>
 
 
-    <Search />
+      <Search />
       <div className='p-5 text-center'>
         <h1 className='text-emerald-400 text-3xl'>Recomendaciones</h1>
       </div>
