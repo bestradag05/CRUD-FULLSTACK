@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { redirect, useLocation, useNavigate } from 'react-router-dom';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
 import Track from '../components/Track';
@@ -18,15 +19,14 @@ const Dashboard = () => {
 
   const trackRef = useRef(null);
 
+
+
   useEffect(() => {
 
     const getTracks = async () => {
       try {
 
-        if (!spotifyToken) {
-          setCargando(true);
-          return;
-        }
+        setCargando(true);
 
         const response = await axios.get('https://api.spotify.com/v1/recommendations', {
           params: {
@@ -59,13 +59,16 @@ const Dashboard = () => {
   useEffect(() => {
 
     if (playPreview) {
-      trackRef.current.src = playPreview;
-      trackRef.current.play();
+      trackRef.current.audio.current.src = playPreview
+      trackRef.current.audio.current.play()
       setShowPlayer(true);
 
 
+
+
+
     } else {
-      trackRef.current.pause();
+      trackRef.current.audio.current.pause();
       setShowPlayer(false);
     }
 
@@ -78,9 +81,9 @@ const Dashboard = () => {
 
       <Search />
       <div className='p-5 text-center'>
-        <h1 className='text-emerald-400 text-3xl'>Recomendaciones</h1>
+        <h1 className='text-emerald-500 uppercase font-bold text-4xl'>Recomendaciones</h1>
       </div>
-      <section className={`${cargando ? 'grid-cols-1' : ' grid-cols-4'} grid place-items-center p-10 max-w-screen-2xl mx-auto`}>
+      <section className={`${cargando ? 'grid-cols-1' : ' 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2'} grid place-items-center p-10 max-w-screen-2xl mx-auto`}>
         {cargando ?
           (
             <Spinner />
@@ -106,10 +109,14 @@ const Dashboard = () => {
 
       </section>
 
-      <div className={`${showPlayer ? ' bottom-0' : '-bottom-36'} bg-white shadow-2xl transition-all fixed w-full p-10 flex justify-center items-center `}>
-        <audio ref={trackRef} controls >
-          <source type="audio/mp3" />
-        </audio>
+      <div id='player' className={`${showPlayer ? ' bottom-0' : '-bottom-52'} bg-slate-800 shadow-2xl transition-all fixed w-full p-10 flex justify-center items-center `}>
+
+        <AudioPlayer
+          className='bg-transparent rounded-lg'
+          ref={trackRef}
+        // other props here
+        />
+
       </div>
 
 

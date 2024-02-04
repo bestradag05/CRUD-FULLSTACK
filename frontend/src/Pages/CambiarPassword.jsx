@@ -41,7 +41,7 @@ const CambiarPassword = () => {
         if (!respuesta.ok) {
           return respuesta.json().then((respuestaServidor) => {
             throw new Error(respuestaServidor.msg);
-            
+
           });
         }
         return respuesta.json();
@@ -60,9 +60,9 @@ const CambiarPassword = () => {
   };
 
   return (
-    <div className="container-fluid h-screen grid grid-cols-2 ">
+    <div className="container-fluid h-screen grid lg:grid-cols-2 ">
       <div className="w-full h-full bg-emerald-400 flex justify-center items-center">
-        <h1 className="text-3xl px-10 text-white font-bold uppercase">
+        <h1 className="text-3xl px-10 text-white font-bold uppercase text-center">
           Ingresa tu email y recupera tu{" "}
           <span className="text-[#364960]">cuenta</span>{" "}
         </h1>

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 const TrackInfo = () => {
 
@@ -43,13 +45,13 @@ const TrackInfo = () => {
 
     return (
         <>
-            <div className="grid grid-cols-2 max-w-screen-2xl mx-auto p-5 pt-20">
-                <div className='p-10 '>
+            <div className="grid lg:grid-cols-2 max-w-screen-2xl mx-auto p-5 pt-20">
+                <div className='p-10 flex  justify-center items-center'>
                     <img src={track.album.images[0].url} alt="" />
                 </div>
                 <div className='text-slate-400 flex gap-3 flex-col items-center justify-center p-5'>
                     <h2 className='text-6xl text-lime-400 uppercase font-semibold text-center'>{track.name}</h2>
-                    <div className='flex justify-center w-full mt-10'>
+                    <div className='flex justify-center flex-wrap w-full mt-10'>
                         {
                             track.artists.map((artist, key) => (
                                 <p key={artist.id} className='mx-2'><i className="fa-solid fa-user-music mx-2"></i>{artist.name}</p>
@@ -64,10 +66,21 @@ const TrackInfo = () => {
                         <p><i className="fa-sharp fa-regular fa-calendar-days mx-2"></i>{formatDate}</p>
                     </div>
 
-                    <div className='mt-20'>
-                        <audio controls >
-                            <source src={track.preview_url} type="audio/mp3" />
-                        </audio>
+                    <div className='mt-20 w-full'>
+                        {
+                            track.preview_url ?
+                                (
+                                    <AudioPlayer
+                                        className='bg-transparent rounded-lg'
+                                        src={track.preview_url}
+                                    // other props here
+                                    />
+                                ) :
+                                (
+                                    null
+                                )
+                        }
+
                     </div>
                 </div>
             </div>

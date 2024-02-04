@@ -14,6 +14,7 @@ const Search = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     if (query !== "") {
       const searchTrack = async () => {
 
@@ -31,7 +32,9 @@ const Search = () => {
               Authorization: `Bearer ${spotifyToken}`,
             },
           });
-          console.log(response.data.tracks.items);
+          const menu = document.getElementsByClassName('search__menu');
+          console.log(menu.innerHTML);
+
 
           //Extraer los datos relevantes de la respuesta
 
@@ -55,7 +58,6 @@ const Search = () => {
   }, [query])
 
   const handleClickTrackInfo = async (e) => {
-    console.log(e.value);
 
     // obtenemos el id y buscamos la info a detalle de la cancion
 
@@ -76,9 +78,11 @@ const Search = () => {
   }
 
   return (
-    <div className="flex justify-center items-center p-5 mb-5">
-      <Select className='w-1/3'
-        onInputChange={(inputValue) => setQuery(inputValue)} options={trackSearch} onChange={handleClickTrackInfo} />
+    <div className="flex justify-center items-center p-5 mb-5 mt-10">
+      <Select className='w-1/2 lg:w-1/3'
+        onInputChange={(inputValue) => setQuery(inputValue)} options={trackSearch} onChange={handleClickTrackInfo} placeholder="Busque la musica que desea"
+        classNamePrefix="search" unstyled
+      />
     </div>
   );
 }

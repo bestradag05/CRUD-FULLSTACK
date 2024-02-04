@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthProvider';
 import RutaProtegida from './layout/RutaProtegida';
 import Dashboard from './Pages/Dashboard';
 import TrackInfo from './Pages/TrackInfo.jsx';
+import Perfil from './Pages/Perfil.jsx';
 import "./assets/font-awesome/font-awesome-pro.js";
 
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/admin' element={<RutaProtegida />} >
             <Route index element={<Dashboard />} />
             <Route path='track-info' element={<TrackInfo />} />
+            <Route path='perfil' element={<Perfil />} />
           </Route>
         </Routes>
       </AuthProvider>

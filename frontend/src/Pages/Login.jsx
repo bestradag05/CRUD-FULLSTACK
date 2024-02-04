@@ -2,19 +2,16 @@ import { useState } from "react";
 import SingIn from "../components/SingIn";
 import SingUp from "../components/SingUp";
 
-
-
 const Login = () => {
 
     const [singIn, setSinIng] = useState(true);
 
 
     return (
-        /*  <div className="bg-[#27343D] w-full h-screen flex justify-center items-center "> */
-        <div className="container-fluid h-screen grid grid-cols-2 ">
+        <div className="container-fluid h-screen grid lg:grid-cols-2 ">
 
             <div className="w-full h-full bg-emerald-400 flex justify-center items-center">
-                <h1 className="text-3xl px-10 text-white font-bold uppercase">Ingresa y escucha tu <span className="text-[#364960]">PlayList</span> en cualquier momento y lugar.</h1>
+                <h1 className="text-3xl px-10 text-white font-bold uppercase text-center">Ingresa y escucha tu <span className="text-[#364960]">PlayList</span> en cualquier momento y lugar.</h1>
             </div>
 
             <div>
@@ -25,7 +22,7 @@ const Login = () => {
                         <a href="#" onClick={() => setSinIng(!singIn)} className={`${singIn === true ? 'text-slate-400' : 'subrayado'} text-3xl font-light`}>Sing Up</a>
                     </div>
 
-                {singIn === true ?  <SingIn /> : <SingUp />}
+                    {singIn === true ? <SingIn /> : <SingUp />}
 
                 </div>
             </div>
@@ -33,9 +30,6 @@ const Login = () => {
 
 
         </div>
-
-
-        /*  </div> */
     );
 }
 

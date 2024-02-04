@@ -26,20 +26,30 @@ const SingIn = () => {
             return;
         }
 
+        const regex = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/
+        if (!regex.test(email)) {
+            setAlerta({
+                msg: 'No es un email correcto',
+                error: true
+            });
+            return
+        }
+
+
         const user = {
             email,
             password
         }
 
         try {
-
+            // Logeamos nuestro usuario y si este existe se devuelve el usuario logeado
             const { data } = await axios.post('http://localhost:3000/usuarios/login', user, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
 
             });
-
+            // Guardamos nuestro token de acceso en el local y tambien en el contexto
             localStorage.setItem('token', data.token);
             setAuth(data);
 
@@ -49,10 +59,12 @@ const SingIn = () => {
             window.location.href = `${import.meta.env.VITE_AUTH_ENDPOINT}?client_id=${import.meta.env.VITE_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=${import.meta.env.VITE_RESPONSE_TYPE}&scope=user-read-private user-read-email streaming user-read-playback-state user-modify-playback-state  playlist-read-private user-library-read`;
 
         } catch (error) {
-            console.log(error);
+            // Si existe un error actualizamos nuestro state 
+            setAlerta({
+                msg: error.response.data.msg,
+                error: true
+            })
         }
-
-
 
 
     }

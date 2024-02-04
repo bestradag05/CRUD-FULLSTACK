@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Alert from './Alert';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const SingUp = () => {
@@ -13,6 +14,7 @@ const SingUp = () => {
 
     const [alerta, setAlerta] = useState({});
 
+    //con esta funcion leemos nuestros inputs de los formularios
     const manejarCambio = (e) => {
         const { name, value } = e.target;
 
@@ -22,7 +24,7 @@ const SingUp = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         //Destructuramos nuestro objeto
@@ -66,28 +68,33 @@ const SingUp = () => {
         }
 
 
-
-        setAlerta({
-            msg: 'Confirma tu cuenta, hemos enviado un email a tu correo electronico',
-            error: false
-        });
-
         const data = {
             nombre,
             email,
             password,
-          };
-          
-          fetch('http://localhost:3000/usuarios', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          })
-            .then(respuesta => respuesta.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+        };
+
+        try {
+            // Registramos nuestro usuario e enviamos un email
+            await axios.post('http://localhost:3000/usuarios', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+
+            // si el usuario se registo correctamente, se envia una alerta de confirmacion
+            setAlerta({
+                msg: 'Confirma tu cuenta, hemos enviado un email a tu correo electronico',
+                error: false
+            });
+
+        } catch (error) {
+            // si hubo algun problema, se envia alerta de error
+            setAlerta({
+                msg: error.response.data.msg,
+                error: true
+            })
+        }
 
     }
 

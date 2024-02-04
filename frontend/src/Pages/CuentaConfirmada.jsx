@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Login from './Login'
+import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import Alert from '../components/Alert';
 
@@ -8,38 +9,41 @@ const CuentaConfirmada = () => {
     const [cuentaconfirmada, setCuentaConfirmada] = useState(false);
     const [alerta, setAlerta] = useState([]);
     const params = useParams();
+
     useEffect(() => {
 
-
+        // al cargar el component, obtenemos el token de la url y llamamos al metodo de nuestro servidor
         const { token } = params;
 
-        fetch(`http://localhost:3000/usuarios/confirmar/${token}`)
-            .then(respuesta => {
-                if (!respuesta.ok) {
-                    return respuesta.json().then(respuestaServidor => {
-                        throw new Error(respuestaServidor.msg);
-                    });
 
-                }
+        const confirmar = async () => {
 
-                return respuesta.json();
-
-            })
-            .then(response => {
+            try {
+                // Confirmamos la cuenta al momento que se renderiza el componente
+                const { data } = await axios(`http://localhost:3000/usuarios/confirmar/${token}`);
+                // Si la cuenta esta confirmada se muestra un link para iniciar secion
                 setCuentaConfirmada(true);
                 setAlerta({
-                    msg: response.msg
+                    msg: data.msg
                 })
-            })
-            .catch(error => {
+
+            } catch (error) {
                 setAlerta({
-                    msg: error.message,
+                    msg: error.response.data.msg,
                     error: true
                 })
-            })
+            }
+
+        }
+
+        confirmar();
+
+
 
 
     }, [])
+
+    console.log(msg);
 
     return (
         <div className="container-fluid h-screen grid grid-cols-2 ">
