@@ -14,6 +14,7 @@ const TrackInfo = () => {
     console.log(track);
     useEffect(() => {
 
+        // Usamos una funcion para formatear nuestro tiempo de la cancion ya que viene en milisegundos
         const formatTime = (ms) => {
 
             const totalSegundos = Math.floor(ms / 1000);
@@ -28,7 +29,7 @@ const TrackInfo = () => {
         }
 
         formatTime(track.duration_ms);
-
+        // Usamos una funcion para formatear nuestro fecha de la cancion
         const formatDate = (date) => {
             // Separamos la fec
 

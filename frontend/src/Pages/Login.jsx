@@ -11,7 +11,7 @@ const Login = () => {
         <div className="container-fluid h-screen grid lg:grid-cols-2 ">
 
             <div className="w-full h-full bg-emerald-400 flex justify-center items-center">
-                <h1 className="text-3xl px-10 text-white font-bold uppercase text-center">Ingresa y escucha tu <span className="text-[#364960]">PlayList</span> en cualquier momento y lugar.</h1>
+                <h1 className="text-3xl px-10 text-white font-bold uppercase text-center">Ingresa y busca tu musica en  <span className="text-[#364960]">SoundHarbor</span> en cualquier momento y lugar.</h1>
             </div>
 
             <div>

@@ -43,8 +43,6 @@ const CuentaConfirmada = () => {
 
     }, [])
 
-    console.log(msg);
-
     return (
         <div className="container-fluid h-screen grid grid-cols-2 ">
 

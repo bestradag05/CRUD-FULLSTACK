@@ -6,6 +6,7 @@ import axios from 'axios';
 import Track from '../components/Track';
 import Spinner from '../components/Spinner';
 import Search from '../components/Search';
+import Alert from '../components/Alert';
 
 const Dashboard = () => {
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
   const [playPreview, setPlayPreview] = useState("");
   const [curretPreview, setCurrentPreview] = useState(null);
   const [showPlayer, setShowPlayer] = useState(false);
+  const [alerta, setAlerta] = useState({});
 
 
   const trackRef = useRef(null);
@@ -27,7 +29,7 @@ const Dashboard = () => {
       try {
 
         setCargando(true);
-
+        // Obtenemos las recomendaciones segun los generos que pasamos como parametros
         const response = await axios.get('https://api.spotify.com/v1/recommendations', {
           params: {
             limit: 20,
@@ -42,10 +44,18 @@ const Dashboard = () => {
 
         setTracks(response.data.tracks);
         setCargando(false);
-        console.log(response.data.tracks);
 
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 429) {
+          setAlerta({
+            msg: "Muchas solicitudes realizadas, intente mas tarde",
+            error: true
+          })
+
+          setCargando(false);
+        }
+
+
       }
 
     }
@@ -58,6 +68,7 @@ const Dashboard = () => {
 
   useEffect(() => {
 
+    //  Obtenemos el cambio de estado del playpreview desde el componente track, y si se cambio el estado reproducimos la cancion
     if (playPreview) {
       trackRef.current.audio.current.src = playPreview
       trackRef.current.audio.current.play()
@@ -68,6 +79,7 @@ const Dashboard = () => {
 
 
     } else {
+      // En caso de que se cambio el estado pero a false, este pausa la cancion
       trackRef.current.audio.current.pause();
       setShowPlayer(false);
     }
@@ -78,11 +90,19 @@ const Dashboard = () => {
   return (
     <>
 
-
       <Search />
       <div className='p-5 text-center'>
         <h1 className='text-emerald-500 uppercase font-bold text-4xl'>Recomendaciones</h1>
       </div>
+
+
+      <div className='flex justify-center items-center mt-10'>
+        {
+          alerta.msg && <Alert alerta={alerta} setAlerta={setAlerta} />
+        }
+      </div>
+
+
       <section className={`${cargando ? 'grid-cols-1' : ' 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-2'} grid place-items-center p-10 max-w-screen-2xl mx-auto`}>
         {cargando ?
           (

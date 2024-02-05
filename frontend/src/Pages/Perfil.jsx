@@ -10,16 +10,17 @@ const Perfil = () => {
 
 
     useEffect(() => {
-
+        // Obtenemos el perfil de la cuenta que autorizo en spotify
         const getPerfil = async () => {
 
             try {
+                // Hacemos la peticion hacia la cuenta
                 const response = await axios('https://api.spotify.com/v1/me', {
                     headers: {
                         Authorization: `Bearer ${spotifyToken}`,
                     }
                 });
-                console.log(response.data);
+                // Actualizamos nuestro estado para poder usarlo 
                 setUser(response.data);
             } catch (error) {
                 console.log(error);

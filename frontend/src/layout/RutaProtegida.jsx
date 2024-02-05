@@ -1,7 +1,7 @@
 import useAuth from '../hooks/useAuth'
-import { Navigate, Outlet, redirect, useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios';
 
 
@@ -16,6 +16,7 @@ const RutaProtegida = () => {
     const urlParams = new URLSearchParams(location.search);
     const spotifyCode = urlParams.get("code");
     const tokenSpotify = localStorage.getItem('spotifyToken');
+    const refeshToken = JSON.parse(localStorage.getItem("refreshToken"));
 
     //Si es que no acepta la autorizacion se redirecciona al login
     if (urlParams.get("error") === "access_denied") {
@@ -41,7 +42,6 @@ const RutaProtegida = () => {
               'Authorization': 'Basic ' + btoa(`${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`)
             }
           });
-          console.log(respuesta);
           setSpotifyToken(respuesta.data.access_token);
           localStorage.setItem('spotifyToken', respuesta.data.access_token);
 

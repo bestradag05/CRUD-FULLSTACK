@@ -19,6 +19,7 @@ const Search = () => {
       const searchTrack = async () => {
 
         try {
+          // enviamos la solicitud de la musica a buscar, primero preparamos nuestra query a buscar codificandola 
           const response = await axios('https://api.spotify.com/v1/search', {
             params: {
               q: encodeURIComponent(query),
@@ -32,17 +33,14 @@ const Search = () => {
               Authorization: `Bearer ${spotifyToken}`,
             },
           });
-          const menu = document.getElementsByClassName('search__menu');
-          console.log(menu.innerHTML);
 
 
-          //Extraer los datos relevantes de la respuesta
-
+          //Extraer los datos que necesitamos para armar nuestra respuesta y agregarlo al select-react segun lo solicitado
           const tracks = response.data.tracks.items.map(track => ({
             label: `${track.name} - ${track.artists.map(artist => artist.name).join(', ')}`,
             value: track.id
           }));
-
+          // agregamos al estado
           setTrackSearch(tracks);
         } catch (error) {
           console.log(error);
@@ -59,10 +57,10 @@ const Search = () => {
 
   const handleClickTrackInfo = async (e) => {
 
-    // obtenemos el id y buscamos la info a detalle de la cancion
+    // Buscar detalle de la cancion
 
     try {
-
+      // al darle click algun elemento de select-react este va buscar por su id y traer la informacion a detalle del track o album
       const response = await axios(`https://api.spotify.com/v1/tracks/${e.value}`,
         {
           headers: {
@@ -70,6 +68,7 @@ const Search = () => {
           },
         });
 
+      // Una vez obtenido el track se redireciona con la informacion hacer la pagina track-info
       navigate('/admin/track-info', { state: { data: response.data } });
 
     } catch (error) {
